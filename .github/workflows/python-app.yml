@@ -53,7 +53,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: Merge staging to Master
+    - name: Merge staging to master
       uses: devmasx/merge-branch@v1.3.1
       with:
         type: now
