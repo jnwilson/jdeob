@@ -47,4 +47,15 @@ jobs:
       run: |
         cd src
         python3 main.py main.js -o ../output.js
+  merge-branch:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
 
+    - name: Merge staging to Master
+      uses: devmasx/merge-branch@v1.3.1
+      with:
+        type: now
+        target_branch: master
+        github_token: ${{github.token}}
