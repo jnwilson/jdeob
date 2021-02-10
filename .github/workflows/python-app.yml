@@ -6,9 +6,9 @@ name: Python application
 
 on:
   push:
-    branches: [ main ]
+    branches: [ staging ]
   pull_request:
-    branches: [ main ]
+    branches: [ staging ]
 
 jobs:
   build:
@@ -47,4 +47,15 @@ jobs:
       run: |
         cd src
         python3 main.py main.js -o ../output.js
+  merge-branch:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
 
+    - name: Merge staging to main
+      uses: devmasx/merge-branch@v1.3.1
+      with:
+        type: now
+        target_branch: main
+        github_token: ${{github.token}}
