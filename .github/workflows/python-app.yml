@@ -3,23 +3,31 @@
 
 name: Python application
 
+
 on:
   push:
-    branches: [ main ]
+    branches: [ staging ]
   pull_request:
-    branches: [ main ]
+    branches: [ staging ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 15
+    
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -31,6 +39,23 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
+    - name: Test console output
       run: |
-        pytest
+        cd src
+        python3 main.py main.js
+    - name: Test file output
+      run: |
+        cd src
+        python3 main.py main.js -o ../output.js
+  merge-branch:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Merge staging to main
+      uses: devmasx/merge-branch@v1.3.1
+      with:
+        type: now
+        target_branch: main
+        github_token: ${{github.token}}
