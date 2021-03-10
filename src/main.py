@@ -1,6 +1,7 @@
 import argparse
 import subprocess
 from src.abstract_syntax_tree import Tree
+from src.findConstsDictionary import findConsts
 
 
 def main():
@@ -22,6 +23,10 @@ def main():
 
     #tree = Tree(input_text)
     tree = Tree()
+
+    findConsts(tree.tree.body)
+
+    print(tree.tree)
 
     #convert the python accessible tree to one that the javascript program can manipulate
     js_tree = tree.convert_to_json()
