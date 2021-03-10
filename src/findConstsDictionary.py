@@ -2,7 +2,13 @@ from src.evalDictionary import eval
 
 def evalVariableDeclaration(node, consts):
     if node.kind == "const":
-        consts.update({node.declarations[0].id.name: eval(node.declarations[0].init, consts)});
+        value = eval(node.declarations[0].init, consts)
+        if (value is None):
+            return
+        consts.update({node.declarations[0].id.name: value})
+        node.declarations[0].init = {"type": "Literal", "value": value, "raw": str(value)}
+
+        
         
 
 

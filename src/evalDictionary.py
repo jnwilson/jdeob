@@ -2,6 +2,12 @@ def evalLiteral(tree, scope):
     return tree.value;
 
 def evalBinaryExpr(tree, scope):
+    left = eval(tree.left, scope)
+    right = eval(tree.right, scope)
+
+    if(left is None or right is None):
+        return None
+
     if(tree.operator == "+"):
         return eval(tree.left, scope) + eval(tree.right, scope);
 
@@ -15,7 +21,7 @@ def evalBinaryExpr(tree, scope):
         return eval(tree.left, scope) / eval(tree.right, scope);    
 
 def evalIdentifier(tree, scope):
-    return scope[tree.name];
+    return scope.get(tree.name);
 
 dispatch = {
     "Literal": evalLiteral,
