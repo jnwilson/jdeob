@@ -26,6 +26,16 @@ def main():
     #convert the python accessible tree to one that the javascript program can manipulate
     js_tree = tree.convert_to_json()
 
+    print("begin dir(json)")
+
+    #cursed but you can use dir(object) for its members, and vars(object) for its values
+
+    level = tree.tree
+    print("DIR", dir(level))
+    print(vars(level))
+
+    print("end dir(json)")
+
     def traverse(branch, depth=""):
         flag = True
         try:
