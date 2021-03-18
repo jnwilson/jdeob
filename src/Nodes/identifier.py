@@ -1,10 +1,11 @@
-from node import Node
+from Nodes import node
 
-class Identifier(Node):
-    def __init__(self, type, parent, name=None):
+
+class Identifier(node.Node):
+    def __init__(self, type, parent, name):
         super().__init__(type, parent)
         self.name = name
     
     def eval(self, scope):
-            return scope[self.name]
+            return scope[self.name][0]
             

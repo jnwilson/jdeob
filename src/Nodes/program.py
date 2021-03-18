@@ -1,6 +1,6 @@
-from node import Node
+from Nodes import node
 
-class Program(Node):
+class Program(node.Node):
     def __init__(self, type, parent):
         super().__init__(type, parent)
         self.body = []
@@ -10,4 +10,6 @@ class Program(Node):
 
     def findConsts(self, consts, variables):
         for satement in self.body:
-            findConsts(consts, variables)
+            satement.findConsts(consts, variables)
+
+

@@ -1,6 +1,6 @@
-from node import Node 
+from Nodes import node 
 
-class VariableDeclaration(Node):
+class VariableDeclaration(node.Node):
     def __init__(self, type, parent, kind):
         super().__init__(type, parent)
         self.kind = kind

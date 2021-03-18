@@ -1,6 +1,7 @@
-from node import Node
+from Nodes import node
 
-class Literal(Node):
+
+class Literal(node.Node):
     def __init__(self, type, parent, value=None):
         super().__init__(type, parent)
         self.value = value

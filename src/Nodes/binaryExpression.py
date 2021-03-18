@@ -1,30 +1,31 @@
-from node import Node
+from Nodes import node
 
-class BinaryExpression(Node):
+class BinaryExpression(node.Node):
     def __init__(self, type, parent, operator=None, left=None, right=None):
         super().__init__(type, parent)
-        self.operator = operator;
+        self.operator = operator
         self.left = left
         self.right = right
     
     def eval(self, scope):
-        left = eval(self.left, scope)
-        right = eval(self.right, scope)
+        left = self.left.eval(scope)
+        right = self.right.eval(scope)
 
+     
         if(left is None or right is None):
             return None
 
         if(self.operator == "+"):
-            return left + right;
+            return left + right
 
         if(self.operator == "-"):
-            return left - right;
+            return left - right
 
         if(self.operator == "*"):
-            return left * right;
+            return left * right
 
         if(self.operator == "/"):
-            return left / right;
+            return left / right
 
         return None
     
