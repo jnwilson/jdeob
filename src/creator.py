@@ -1,12 +1,31 @@
-from Nodes import binaryExpression, identifier, literal, node, program, variableDeclaration, variableDeclarator
+from Nodes import binaryExpression, identifier, literal, node, program, variableDeclaration, variableDeclarator, statement, statementList
 
 def createProgramNode(node, parent=None):
+    
     p = program.Program(node.type, parent)
-    for statement in node.body:
-        s = createTreeNodes(statement, p)
-        p.addStatement(s)
+
+    s = createStatementList(node, p)
+    
+    p.setBody(s)
     
     return p
+
+def createStatementList(node, parent):
+    sList = statementList.StatementList("StatementList", parent)
+
+    for statement in node.body:
+        s = createStatement(statement, parent)
+        sList.addStatement(s)
+    
+    return sList
+
+def createStatement(node, parent):
+    container = statement.Statement("Statement", parent)
+
+    s = createTreeNodes(node, parent)
+    container.setStatement(s)
+
+    return container
 
 def createVariableDeclaration(node, parent):
     dec = variableDeclaration.VariableDeclaration(node.type, parent, node.kind)
@@ -19,7 +38,7 @@ def createVariableDeclaration(node, parent):
 def createVariableDeclarator(node, parent):
     dec = variableDeclarator.VariableDeclarator(node.type, parent)
 
-    dec.ident = createTreeNodes(node.id, dec)
+    dec.identifier = createTreeNodes(node.id, dec)
     dec.init = createTreeNodes(node.init, dec)
 
     return dec
@@ -48,7 +67,9 @@ dispatch = {
     "VariableDeclarator" : createVariableDeclarator,
     "Identifier": createIdentifier,
     "Literal": createLiteral,
-    "BinaryExpression": createBinaryExpression
+    "BinaryExpression": createBinaryExpression,
+    "StatementList": createStatementList,
+    "Statement": createStatement
 
 }
 

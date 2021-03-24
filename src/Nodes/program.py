@@ -1,15 +1,14 @@
-from Nodes import node
+from Nodes import node, statementList
 
 class Program(node.Node):
     def __init__(self, type, parent):
         super().__init__(type, parent)
-        self.body = []
-    
-    def addStatement(self, statement):
-        self.body.append(statement)
+        self.body = statementList.StatementList("StatmentList", self)
+        
+    def setBody(self, body):
+        self.body = body        
 
     def findConsts(self, consts, variables):
-        for satement in self.body:
-            satement.findConsts(consts, variables)
+        self.body.findConsts(consts, variables)
 
 
