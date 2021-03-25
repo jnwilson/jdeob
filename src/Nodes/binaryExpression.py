@@ -8,26 +8,7 @@ class BinaryExpression(node.Node):
         self.right = right
     
     def eval(self, scope):
-        left = self.left.eval(scope)
-        right = self.right.eval(scope)
-
-     
-        if(left is None or right is None):
-            return None
-
-        if(self.operator == "+"):
-            return left + right
-
-        if(self.operator == "-"):
-            return left - right
-
-        if(self.operator == "*"):
-            return left * right
-
-        if(self.operator == "/"):
-            return left / right
-
-        return None
+        return self.operator.eval(self.left, self.right, scope)
     
     
             

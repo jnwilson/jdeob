@@ -1,4 +1,4 @@
-from Nodes import binaryExpression, identifier, literal, node, program, variableDeclaration, variableDeclarator, statement, statementList
+from Nodes import binaryExpression, identifier, literal, node, program, variableDeclaration, variableDeclarator, statement, statementList, plusOperator, minusOperator, multiplicationOperator, divisionOperator, exponentOperator
 
 def createProgramNode(node, parent=None):
     
@@ -52,12 +52,32 @@ def createLiteral(node, parent):
     return lit
 
 def createBinaryExpression(node, parent):
-    binExpr = binaryExpression.BinaryExpression(node.type, parent, node.operator)
+    binExpr = binaryExpression.BinaryExpression(node.type, parent)
+
+
 
     binExpr.left = createTreeNodes(node.left, binExpr)
     binExpr.right = createTreeNodes(node.right, binExpr)
 
+    binExpr.operator = createOperator(node.operator, binExpr)
+
     return binExpr
+
+def createOperator(operator, parent):
+    if(operator == "+"):
+        return plusOperator.PlusOperator("Operator", parent, operator)
+
+    if(operator == "-"):
+        return minusOperator.MinusOperator("Operator", parent, operator)
+
+    if(operator == "*"):
+        return multiplicationOperator.MultiplicationOperator("Operator", parent, operator)
+
+    if(operator == "/"):
+        return divisionOperator.DivisionOperator("Operator", parent, operator)
+
+    if(operator == "^"):
+        return exponentOperator.ExponentOperator("Operator", parent, operator)
 
 
 
