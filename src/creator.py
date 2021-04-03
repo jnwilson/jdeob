@@ -1,4 +1,5 @@
-from Nodes import binaryExpression, identifier, literal, node, program, variableDeclaration, variableDeclarator, statement, statementList, plusOperator, minusOperator, multiplicationOperator, divisionOperator, exponentOperator
+from Nodes import *
+
 
 def createProgramNode(node, parent=None):
     
@@ -10,6 +11,7 @@ def createProgramNode(node, parent=None):
     
     return p
 
+
 def createStatementList(node, parent):
     sList = statementList.StatementList("StatementList", parent)
 
@@ -19,6 +21,7 @@ def createStatementList(node, parent):
     
     return sList
 
+
 def createStatement(node, parent):
     container = statement.Statement("Statement", parent)
 
@@ -26,6 +29,7 @@ def createStatement(node, parent):
     container.setStatement(s)
 
     return container
+
 
 def createVariableDeclaration(node, parent):
     dec = variableDeclaration.VariableDeclaration(node.type, parent, node.kind)
@@ -35,6 +39,7 @@ def createVariableDeclaration(node, parent):
 
     return dec
 
+
 def createVariableDeclarator(node, parent):
     dec = variableDeclarator.VariableDeclarator(node.type, parent)
 
@@ -43,18 +48,19 @@ def createVariableDeclarator(node, parent):
 
     return dec
 
+
 def createIdentifier(node, parent):
     i = identifier.Identifier(node.type, parent, node.name)
     return i
+
 
 def createLiteral(node, parent):
     lit = literal.Literal(node.type, parent, node.value)
     return lit
 
+
 def createBinaryExpression(node, parent):
     binExpr = binaryExpression.BinaryExpression(node.type, parent)
-
-
 
     binExpr.left = createTreeNodes(node.left, binExpr)
     binExpr.right = createTreeNodes(node.right, binExpr)
@@ -63,35 +69,48 @@ def createBinaryExpression(node, parent):
 
     return binExpr
 
+
 def createOperator(operator, parent):
-    if(operator == "+"):
+    """
+    #cleaned it up some, should work the same?
+    if operator == "+":
         return plusOperator.PlusOperator("Operator", parent, operator)
 
-    if(operator == "-"):
+    if operator == "-":
         return minusOperator.MinusOperator("Operator", parent, operator)
 
-    if(operator == "*"):
+    if operator == "*":
         return multiplicationOperator.MultiplicationOperator("Operator", parent, operator)
 
-    if(operator == "/"):
+    if operator == "/":
         return divisionOperator.DivisionOperator("Operator", parent, operator)
 
-    if(operator == "^"):
+    if operator == "^":
         return exponentOperator.ExponentOperator("Operator", parent, operator)
-
+    """
+    operator_dict = {
+        "+": plusOperator.PlusOperator,
+        "-": minusOperator.MinusOperator,
+        "*": multiplicationOperator.MultiplicationOperator,
+        "/": divisionOperator.DivisionOperator,
+        "^": exponentOperator.ExponentOperator
+    }
+    if operator in operator_dict:
+        return operator_dict.get(operator)("Operator", parent, operator)
+    #else im not sure actually
 
 
 dispatch = {
-    "Program" : createProgramNode,
+    "Program": createProgramNode,
     "VariableDeclaration": createVariableDeclaration,
-    "VariableDeclarator" : createVariableDeclarator,
+    "VariableDeclarator": createVariableDeclarator,
     "Identifier": createIdentifier,
     "Literal": createLiteral,
     "BinaryExpression": createBinaryExpression,
     "StatementList": createStatementList,
     "Statement": createStatement
-
 }
+
 
 def createTreeNodes(node, parent=None):
     node = dispatch[node.type](node, parent)
