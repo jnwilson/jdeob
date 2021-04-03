@@ -1,7 +1,9 @@
 import argparse
 import subprocess
 from src.abstract_syntax_tree import Tree
+from src.findConstsDictionary import findConsts
 
+from creator import createTreeNodes
 
 def main():
     #Set up argument parser
@@ -22,6 +24,21 @@ def main():
 
     #tree = Tree(input_text)
     tree = Tree()
+    #print(tree.tree)
+
+    program = createTreeNodes(tree.tree)
+
+
+    consts = {}
+    variables = {}
+
+    program.findConsts(consts, variables)
+
+    print(consts)
+    print(variables)
+    #findConsts(tree.tree.body)
+
+    
 
     #convert the python accessible tree to one that the javascript program can manipulate
     js_tree = tree.convert_to_json()
@@ -53,7 +70,7 @@ def main():
                 traverse(entry, depth=depth+"    ")
 
     #pass the tree over to node.js running astring to generate code from the tree
-    new_source = run_node(js_tree)
+    #new_source = run_node(js_tree)
 
     #print tree
     '''

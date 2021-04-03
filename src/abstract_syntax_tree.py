@@ -5,7 +5,7 @@ class Tree:
     def __str__(self):
         return str(self.tree)
 
-    def __init__(self, javascript='const x = 10;\nlet y = x * 2 + 1;'):
+    def __init__(self, javascript='const x = 10;\nconst y = x * 2 + 1;'):
         #parse code to generate tree
         self.tree = esprima.parse(javascript)
 
