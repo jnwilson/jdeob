@@ -5,6 +5,7 @@ from src.findConstsDictionary import findConsts
 
 from creator import createTreeNodes
 
+
 def main():
     #Set up argument parser
     parser = argparse.ArgumentParser(description='A program that deobfuscates JavaScript')
@@ -37,8 +38,6 @@ def main():
     print(consts)
     print(variables)
     #findConsts(tree.tree.body)
-
-    
 
     #convert the python accessible tree to one that the javascript program can manipulate
     js_tree = tree.convert_to_json()
