@@ -1,4 +1,5 @@
-from src.evalDictionary import eval
+from evalDictionary import eval
+
 
 def evalVariableDeclaration(node, consts):
     if node.kind == "const":
@@ -8,10 +9,6 @@ def evalVariableDeclaration(node, consts):
         consts.update({node.declarations[0].id.name: value})
         node.declarations[0].init = {"type": "Literal", "value": value, "raw": str(value)}
 
-        
-        
-
-
 
 dispatch = {
     "VariableDeclaration": evalVariableDeclaration
@@ -19,12 +16,13 @@ dispatch = {
 
 
 def findConsts(tree):
-    listOfConsts={}
+    listOfConsts = {}
     for node in tree:
         dispatch[node.type](node, listOfConsts)
 
     print(listOfConsts)
-    return listOfConsts;
+    return listOfConsts
+
 
 
 

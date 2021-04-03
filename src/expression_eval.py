@@ -1,4 +1,4 @@
-from src.abstract_syntax_tree import Tree
+from abstract_syntax_tree import Tree
 
 #cases for expressions that should be evaluated/simplified
 #should probably use node to evaluate them or custom functions

@@ -1,7 +1,7 @@
 import argparse
 import subprocess
-from src.abstract_syntax_tree import Tree
-from src.findConstsDictionary import findConsts
+from abstract_syntax_tree import Tree
+from findConstsDictionary import findConsts
 
 from creator import createTreeNodes
 
@@ -23,12 +23,9 @@ def main():
     with open(args.input, "r", encoding='utf-8') as input_file:
         input_text = input_file.read()
 
-    #tree = Tree(input_text)
-    tree = Tree()
-    #print(tree.tree)
+    tree = Tree(input_text)
 
     program = createTreeNodes(tree.tree)
-
 
     consts = {}
     variables = {}
@@ -42,16 +39,9 @@ def main():
     #convert the python accessible tree to one that the javascript program can manipulate
     js_tree = tree.convert_to_json()
 
-    print("begin dir(json)")
-
     #cursed but you can use dir(object) for its members, and vars(object) for its values
-
-    level = tree.tree
-    print("DIR", dir(level))
-    print(vars(level))
-
-    print("end dir(json)")
-
+    '''
+    #horrible way to traverse
     def traverse(branch, depth=""):
         flag = True
         try:
@@ -67,19 +57,18 @@ def main():
             for entry in branch:
                 print(depth + "    ", entry.type)
                 traverse(entry, depth=depth+"    ")
+    '''
 
     #pass the tree over to node.js running astring to generate code from the tree
-    #new_source = run_node(js_tree)
+    new_source = run_node(js_tree)
 
-    #print tree
-    '''
+    #print tree if no output dir given. else write to file
     if args.output_dir:
         output_file = open(args.output_dir, "w")
         output_file.write(new_source)
         output_file.close()
     else:
         print(new_source, end="")
-    '''
 
 
 def run_node(abstract_syntax_tree):

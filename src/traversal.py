@@ -1,4 +1,4 @@
-from src.abstract_syntax_tree import Tree
+from abstract_syntax_tree import Tree
 
 
 def not_implemented(node, depth=0):
