@@ -2,7 +2,6 @@ from Nodes import *
 
 
 def createProgramNode(node, parent=None):
-    
     p = program.Program(node.type, parent)
 
     s = createStatementList(node, p)
@@ -11,7 +10,7 @@ def createProgramNode(node, parent=None):
     
     return p
 
-def createBlockStatement(node,parent):
+def createBlockStatement(node, parent):
     block = blockStatement.BlockStatement(node.type, parent)
 
     statements = createStatementList(node, block)
@@ -78,6 +77,7 @@ def createBinaryExpression(node, parent):
 
     return binExpr
 
+
 def createFunctionDeclaration(node, parent):
     func = functionDeclaration.FunctionDeclaration(node.type, parent)
     
@@ -94,6 +94,7 @@ def createFunctionDeclaration(node, parent):
 
     return func
 
+
 def createReturnStatement(node, parent):
     ret = returnStatement.ReturnStatement(node.type, parent)
 
@@ -104,26 +105,7 @@ def createReturnStatement(node, parent):
     return ret
 
 
-
-
 def createOperator(operator, parent):
-    """
-    #cleaned it up some, should work the same?
-    if operator == "+":
-        return plusOperator.PlusOperator("Operator", parent, operator)
-
-    if operator == "-":
-        return minusOperator.MinusOperator("Operator", parent, operator)
-
-    if operator == "*":
-        return multiplicationOperator.MultiplicationOperator("Operator", parent, operator)
-
-    if operator == "/":
-        return divisionOperator.DivisionOperator("Operator", parent, operator)
-
-    if operator == "^":
-        return exponentOperator.ExponentOperator("Operator", parent, operator)
-    """
     operator_dict = {
         "+": plusOperator.PlusOperator,
         "-": minusOperator.MinusOperator,
