@@ -11,6 +11,15 @@ def createProgramNode(node, parent=None):
     
     return p
 
+def createBlockStatement(node,parent):
+    block = blockStatement.BlockStatement(node.type, parent)
+
+    statements = createStatementList(node, block)
+
+    block.setBody(statements)
+
+    return block
+
 
 def createStatementList(node, parent):
     sList = statementList.StatementList("StatementList", parent)
@@ -69,6 +78,33 @@ def createBinaryExpression(node, parent):
 
     return binExpr
 
+def createFunctionDeclaration(node, parent):
+    func = functionDeclaration.FunctionDeclaration(node.type, parent)
+    
+    body = createTreeNodes(node.body, func)
+
+    func.setBody(body)
+
+    params = []
+    for paramater in node.params:
+        p = createStatement(paramater, parent)
+        params.append(p)
+
+    func.setParamaters(params)
+
+    return func
+
+def createReturnStatement(node, parent):
+    ret = returnStatement.ReturnStatement(node.type, parent)
+
+    arg = createTreeNodes(node.argument, ret)
+
+    ret.setArgument(arg)
+
+    return ret
+
+
+
 
 def createOperator(operator, parent):
     """
@@ -108,7 +144,10 @@ dispatch = {
     "Literal": createLiteral,
     "BinaryExpression": createBinaryExpression,
     "StatementList": createStatementList,
-    "Statement": createStatement
+    "Statement": createStatement,
+    "FunctionDeclaration": createFunctionDeclaration,
+    "BlockStatement": createBlockStatement,
+    "ReturnStatement": createReturnStatement
 }
 
 
