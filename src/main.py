@@ -40,24 +40,6 @@ def main():
     js_tree = tree.convert_to_json()
 
     #cursed but you can use dir(object) for its members, and vars(object) for its values
-    '''
-    #horrible way to traverse
-    def traverse(branch, depth=""):
-        flag = True
-        try:
-            iter(branch)
-        except TypeError:
-            print(branch.type)
-            flag = False
-        if flag:
-            try:
-                print(branch.type)
-            except AttributeError:
-                pass
-            for entry in branch:
-                print(depth + "    ", entry.type)
-                traverse(entry, depth=depth+"    ")
-    '''
 
     #pass the tree over to node.js running astring to generate code from the tree
     new_source = run_node(js_tree)
@@ -83,6 +65,7 @@ def run_node(abstract_syntax_tree):
         trailing_newlines += 1
     if trailing_newlines in (0, 1):
         return trimmed
+
     return trimmed[0:1-trailing_newlines]
 
 
