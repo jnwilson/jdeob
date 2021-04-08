@@ -1,9 +1,8 @@
-from Nodes import node, statementList, scope
+from Nodes import node, statementList
 
 class Program(node.Node):
     def __init__(self, type, parent):
         super().__init__(type, parent)
-        self.scope = scope.Scope()
         self.body = statementList.StatementList("StatmentList", self)
         
     def setBody(self, body):

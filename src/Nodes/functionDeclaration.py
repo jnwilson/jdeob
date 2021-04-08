@@ -1,8 +1,9 @@
-from Nodes import node, blockStatement
+from Nodes import node, blockStatement, scope
 
 class FunctionDeclaration(node.Node):
     def __init__(self, type, parent):
         super().__init__(type, parent)
+        self.scope = scope.Scope(parent.scope)
         self.paramaters = []
         self.body = blockStatement.BlockStatement("BlockStatement", self)
 
