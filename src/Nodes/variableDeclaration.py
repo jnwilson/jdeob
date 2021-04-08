@@ -1,5 +1,6 @@
 from Nodes import node 
 
+
 class VariableDeclaration(node.Node):
     def __init__(self, type, parent, kind):
         super().__init__(type, parent)
@@ -12,5 +13,3 @@ class VariableDeclaration(node.Node):
     def findConsts(self, consts, variables):
         for dec in self.declarations:
             dec.findConsts(consts, variables)
-    
-

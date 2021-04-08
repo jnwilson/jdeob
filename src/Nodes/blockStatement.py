@@ -1,5 +1,6 @@
 from Nodes import node, statementList
 
+
 class BlockStatement(node.Node):
     def __init__(self, type, parent):
         super().__init__(type, parent)
@@ -11,4 +12,3 @@ class BlockStatement(node.Node):
 
     def findConsts(self, consts, variables):
         self.body.findConsts(consts, variables)
-        

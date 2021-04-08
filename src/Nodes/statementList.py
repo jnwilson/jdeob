@@ -1,5 +1,6 @@
 from Nodes import node
 
+
 class StatementList(node.Node):
     def __init__(self, type, parent):
         super().__init__(type, parent)
@@ -11,5 +12,3 @@ class StatementList(node.Node):
     def findConsts(self, consts, variables):
         for statement in self.statementList:
             statement.findConsts(consts, variables)
-
-    

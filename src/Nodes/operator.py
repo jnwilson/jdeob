@@ -1,9 +1,10 @@
 from Nodes import node
 
+
 class Operator(node.Node):
     def __init__(self, type, parent, operator):
         super().__init__(type, parent)
-        self.operator=operator
+        self.operator = operator
 
-    def eval(self, left, right, scope):
+    def eval(self, scope):
         return None

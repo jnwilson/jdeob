@@ -7,5 +7,4 @@ class Identifier(node.Node):
         self.name = name
     
     def eval(self, scope):
-            return scope[self.name][0]
-            
+        return scope[self.name][0]

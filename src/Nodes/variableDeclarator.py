@@ -1,5 +1,6 @@
 from Nodes import node
 
+
 class VariableDeclarator(node.Node):
     def __init__(self, type, parent, ident=None, init=None):
         super().__init__(type, parent)
@@ -9,15 +10,11 @@ class VariableDeclarator(node.Node):
     def findConsts(self, consts, variables):
         value = self.init.eval(variables)
 
-        if(self.parent.kind == "const"):
+        if self.parent.kind == "const":
             consts.update({self.identifier.name: value})
-            
 
-            #{variable name: (value, hasBeenChaned?)}
-        if(value is None): #unknown variable value. Can't consider it constant
+        #{variable name: (value, hasBeenChanged?)}
+        if value is None:  # unknown variable value. Can't consider it constant
             variables.update({self.identifier.name: (value, True)}) 
         else:
             variables.update({self.identifier.name: (value, False)})
-
-
-

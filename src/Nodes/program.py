@@ -1,5 +1,6 @@
 from Nodes import node, statementList
 
+
 class Program(node.Node):
     def __init__(self, type, parent):
         super().__init__(type, parent)
@@ -10,5 +11,3 @@ class Program(node.Node):
 
     def findConsts(self, consts, variables):
         self.body.findConsts(consts, variables)
-
-

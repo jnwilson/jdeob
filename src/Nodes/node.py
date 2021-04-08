@@ -1,5 +1,6 @@
 from Nodes import scope
 
+
 class Node:
     def __init__(self, type, parent):
         self.type = type
@@ -9,11 +10,8 @@ class Node:
         else:
             self.scope = scope.Scope()
 
-
     def eval(self, scope):
         return None
 
     def findConsts(self, consts, variables):
         return None
-
-    

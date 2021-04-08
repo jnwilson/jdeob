@@ -1,5 +1,6 @@
 from Nodes import node
 
+
 class BinaryExpression(node.Node):
     def __init__(self, type, parent, operator=None, left=None, right=None):
         super().__init__(type, parent)
@@ -9,6 +10,3 @@ class BinaryExpression(node.Node):
     
     def eval(self, scope):
         return self.operator.eval(self.left, self.right, scope)
-    
-    
-            

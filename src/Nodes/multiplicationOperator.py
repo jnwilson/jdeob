@@ -1,5 +1,6 @@
 from Nodes import operator
 
+
 class MultiplicationOperator(operator.Operator):
     def __init__(self, type, parent, operator):
         super().__init__(type, parent, operator)
