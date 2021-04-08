@@ -7,7 +7,9 @@ class Program(node.Node):
         self.body = statementList.StatementList("StatmentList", self)
         
     def setBody(self, body):
-        self.body = body        
+        self.body = body
 
     def findConsts(self, consts, variables):
+        self.scope.print()
         self.body.findConsts(consts, variables)
+        

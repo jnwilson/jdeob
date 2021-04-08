@@ -4,5 +4,6 @@ function square(number) {
   }
   
 
-let x = 29;
-let y = x * 2 + 2;
+let x = square;
+let y = 2 * 2 + 2;
+

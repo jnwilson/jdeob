@@ -24,9 +24,10 @@ def main():
         input_text = input_file.read()
 
     tree = Tree(input_text)
-
+    print(tree)
     program = createTreeNodes(tree.tree)
 
+    
     consts = {}
     variables = {}
 

@@ -8,5 +8,5 @@ class BinaryExpression(node.Node):
         self.left = left
         self.right = right
     
-    def eval(self, scope):
-        return self.operator.eval(self.left, self.right, scope)
+    def eval(self):
+        return self.operator.eval(self.left, self.right)

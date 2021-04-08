@@ -6,5 +6,6 @@ class Identifier(node.Node):
         super().__init__(type, parent)
         self.name = name
     
-    def eval(self, scope):
-        return scope[self.name][0]
+    def eval(self):
+            return self.scope.getVal(self.name)
+            

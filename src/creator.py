@@ -51,8 +51,8 @@ def createVariableDeclaration(node, parent):
 def createVariableDeclarator(node, parent):
     dec = variableDeclarator.VariableDeclarator(node.type, parent)
 
-    dec.identifier = createTreeNodes(node.id, dec)
-    dec.init = createTreeNodes(node.init, dec)
+    dec.setIdentifier(createTreeNodes(node.id, dec)) 
+    dec.setInit(createTreeNodes(node.init, dec))
 
     return dec
 
@@ -79,7 +79,7 @@ def createBinaryExpression(node, parent):
 
 
 def createFunctionDeclaration(node, parent):
-    func = functionDeclaration.FunctionDeclaration(node.type, parent)
+    func = functionDeclaration.FunctionDeclaration(node.type, parent, node.id.name)
     
     body = createTreeNodes(node.body, func)
 

@@ -8,3 +8,6 @@ class ReturnStatement(node.Node):
     
     def setArgument(self, argument):
         self.argument = argument
+        
+    def eval(self):
+        return self.argument.eval()

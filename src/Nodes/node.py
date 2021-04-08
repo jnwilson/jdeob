@@ -10,7 +10,7 @@ class Node:
         else:
             self.scope = scope.Scope()
 
-    def eval(self, scope):
+    def eval(self):
         return None
 
     def findConsts(self, consts, variables):

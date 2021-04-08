@@ -6,5 +6,5 @@ class Operator(node.Node):
         super().__init__(type, parent)
         self.operator = operator
 
-    def eval(self, scope):
+    def eval(self):
         return None

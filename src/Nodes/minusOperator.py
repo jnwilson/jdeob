@@ -6,9 +6,9 @@ class MinusOperator(operator.Operator):
         super().__init__(type, parent, operator)
         self.operator=operator
 
-    def eval(self, left, right, scope):
-        l = left.eval(scope)
-        r = right.eval(scope)
+    def eval(self, left, right):
+        l = left.eval()
+        r = right.eval()
 
         if(left is None or right is None):
             return None

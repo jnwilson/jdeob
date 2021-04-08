@@ -6,5 +6,5 @@ class Literal(node.Node):
         super().__init__(type, parent)
         self.value = value
 
-    def eval(self, scope):
+    def eval(self):
         return self.value
