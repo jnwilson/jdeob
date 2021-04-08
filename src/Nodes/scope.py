@@ -1,5 +1,5 @@
 class Scope:
-    def _init_(self, parent=None):
+    def __init__(self, parent=None):
         self.parent = parent
         self.enclosingFunction = self
         if parent is not None:
