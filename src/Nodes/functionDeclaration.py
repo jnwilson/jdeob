@@ -18,7 +18,8 @@ class FunctionDeclaration(node.Node):
         self.parameters = params
 
     def findConsts(self, consts, variables):
-        self.scope.print()
+        #self.scope.print()
+        return
 
     def callEval(self, args):
         #TODO: apply args to function scope
