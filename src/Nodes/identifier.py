@@ -8,4 +8,3 @@ class Identifier(node.Node):
     
     def eval(self):
             return self.scope.getVal(self.name)
-            

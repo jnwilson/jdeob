@@ -16,8 +16,9 @@ def variable_declaration(node, depth=0):
 
 
 def variable_declarator(node, depth=0):
-    print(node.id)
-    print(node.init)
+    #print(node.id)
+    #print(node.init)
+    pass
 
 
 traversal_dictionary = {

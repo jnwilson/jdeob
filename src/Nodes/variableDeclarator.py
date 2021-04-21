@@ -21,8 +21,6 @@ class VariableDeclarator(node.Node):
         else:
             self.scope.update(self.identifier.name, valueCreator.createValue("Primitive", value.eval()))
 
-
-
     def findConsts(self, consts, variables):
         value = self.init.eval()
 

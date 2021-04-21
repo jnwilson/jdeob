@@ -16,6 +16,9 @@ def main():
     #optional argument. pass a file to output to. if none given outputs to stdout
     parser.add_argument('-o', '--output', dest='output_dir', type=str, help='file to output to')
 
+    # optional argument. print everything to console
+    parser.add_argument('-v', '--verbose', action='store_true', default=False, help='verbose')
+
     #parse arguments. if required arguments are not given, program exits
     args = parser.parse_args()
 
@@ -24,17 +27,19 @@ def main():
         input_text = input_file.read()
 
     tree = Tree(input_text)
-    print(tree)
+    if args.verbose:
+        print(tree)
+
     program = createTreeNodes(tree.tree)
 
-    
     consts = {}
     variables = {}
 
     program.findConsts(consts, variables)
 
-    print(consts)
-    print(variables)
+    if args.verbose:
+        print(consts)
+        print(variables)
     #findConsts(tree.tree.body)
 
     #convert the python accessible tree to one that the javascript program can manipulate

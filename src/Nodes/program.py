@@ -12,4 +12,3 @@ class Program(node.Node):
     def findConsts(self, consts, variables):
         self.scope.print()
         self.body.findConsts(consts, variables)
-        

@@ -20,7 +20,7 @@ def findConsts(tree):
     for node in tree:
         dispatch[node.type](node, listOfConsts)
 
-    print(listOfConsts)
+    #print(listOfConsts)
     return listOfConsts
 
 

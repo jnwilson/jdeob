@@ -5,5 +5,3 @@ class Value:
 
     def eval(self):
         return self.value
-
-

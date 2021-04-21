@@ -28,6 +28,6 @@ class Scope:
 
     def print(self):
         for var in self.vars:
-            print(var)
-            print(self.vars[var].eval())
-        
+            #print(var)
+            #print(self.vars[var].eval())
+            pass
