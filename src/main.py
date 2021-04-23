@@ -1,6 +1,9 @@
 import argparse
-import esprima
 import subprocess
+from abstract_syntax_tree import Tree
+from findConstsDictionary import findConsts
+
+from creator import createTreeNodes
 
 
 def main():
@@ -13,6 +16,9 @@ def main():
     #optional argument. pass a file to output to. if none given outputs to stdout
     parser.add_argument('-o', '--output', dest='output_dir', type=str, help='file to output to')
 
+    # optional argument. print everything to console
+    parser.add_argument('-v', '--verbose', action='store_true', default=False, help='verbose')
+
     #parse arguments. if required arguments are not given, program exits
     args = parser.parse_args()
 
@@ -20,14 +26,31 @@ def main():
     with open(args.input, "r", encoding='utf-8') as input_file:
         input_text = input_file.read()
 
-    tree = esprima_interface(input_text)
-    #print(tree)
+    tree = Tree(input_text)
+    if args.verbose:
+        print(tree)
+
+    program = createTreeNodes(tree.tree)
+
+    consts = {}
+    variables = {}
+
+    program.findConsts(consts, variables)
+
+    if args.verbose:
+        print(consts)
+        print(variables)
+    #findConsts(tree.tree.body)
 
     #convert the python accessible tree to one that the javascript program can manipulate
-    js_tree = convert_to_json(str(tree))
+    js_tree = tree.convert_to_json()
+
+    #cursed but you can use dir(object) for its members, and vars(object) for its values
+
     #pass the tree over to node.js running astring to generate code from the tree
     new_source = run_node(js_tree)
 
+    #print tree if no output dir given. else write to file
     if args.output_dir:
         output_file = open(args.output_dir, "w")
         output_file.write(new_source)
@@ -48,45 +71,12 @@ def run_node(abstract_syntax_tree):
         trailing_newlines += 1
     if trailing_newlines in (0, 1):
         return trimmed
+
     return trimmed[0:1-trailing_newlines]
-
-
-def esprima_interface(program='var help = 5'):
-    return esprima.parse(program)
 
 
 def write_to_function(input_str):
     print(input_str)
-
-
-#reformat from working with python, to working with js
-def convert_to_json(abstract_syntax_tree):
-    def character_range(a, b):
-        for c in range(ord(a), ord(b) + 1):
-            yield chr(c)
-
-    output = ""
-    #replace boolean capitals. rename True to true, and False to false
-    abstract_syntax_tree = abstract_syntax_tree.replace(" False", " false")
-    abstract_syntax_tree = abstract_syntax_tree.replace(" True", " true")
-    #break up the string by line
-    for line in abstract_syntax_tree.split("\n"):
-        #only lines with colons are invalid
-        index_2 = line.find(':')
-        if index_2 == -1:
-            output += line + "\n"
-            continue
-        counter = index_2
-        index_1 = 0
-        #iterate the line backwards until a non letter is found, or there are no more characters
-        while counter > 0:
-            if line[counter - 1] not in character_range('A', 'z'):
-                index_1 = counter
-                break
-            counter -= 1
-        #surround each entry with quotation marks to make it a proper json
-        output += line[0:index_1] + "\"" + line[index_1:index_2] + "\"" + line[index_2:] + "\n"
-    return output
 
 
 if __name__ == "__main__":
